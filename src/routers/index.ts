@@ -22,7 +22,9 @@ router.beforeEach((to) => {
   const navStore = useNavStore();
   // 获取父路径，优先从路由meta中获取，没有则使用匹配的第一个路径
   // const parentPath = to.meta.parentPath || to.matched[0]?.path || '/';
-  navStore.setCurrentPath(to.path);
-  console.log("111", to.path,to.meta);
+  const path = (to.meta.parentPath as string) || "/";
+  const subPath = to.path;
+  navStore.setCurrentPath(path, subPath);
+  console.log("路由", path, subPath);
 });
 export default router;
