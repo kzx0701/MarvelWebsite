@@ -5,7 +5,7 @@
     <div class="banner-container">
       <el-carousel :interval="5000" direction="vertical" activeIndex="1" trigger="click" ref="carouselRef">
         <el-carousel-item v-for="(item, index) in bannerList" :key="index">
-          <div class="banner-img" :style="{ '--bg-banner-image': 'url(' + item.image + ')' }"  />
+          <div class="banner-img" :style="{ '--bg-banner-image': 'url(' + item.image + ')' }" />
           <div class="banner-text">
             <h2>{{ item.title }}</h2>
             <p>{{ item.description }}</p>
@@ -20,7 +20,8 @@
         :style="{ '--bg-image': 'url(' + item.image + ')' }"
         @mouseenter="(e) => handleMouseEnter(e, index)"
         v-for="(item, index) in bannerList"
-        :key="index">
+        :key="index"
+      >
         <p class="tip">{{ item.title }}</p>
         <p class="second-text">{{ item.description }}</p>
       </div>
@@ -83,7 +84,6 @@ const handleMouseEnter = (e: any, index: number) => {
     width: 100%;
     position: relative;
     overflow: hidden;
-    border-radius: 8px; /* 增加圆角增强质感 */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* 深色阴影增强立体感 */
   }
 
@@ -114,9 +114,8 @@ const handleMouseEnter = (e: any, index: number) => {
     color: white;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* 更自然的过渡曲线 */
-    border: 1px solid rgba(255, 255, 255, 0.05); /* 细边框增强轮廓 */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(90deg, #000 30%, transparent 70%), var(--bg-image) bottom right / cover no-repeat;
+    background: linear-gradient(90deg, #000 15%, transparent 100%), var(--bg-image) bottom right / cover no-repeat;
   }
 
   .cards .card p.tip {
@@ -149,12 +148,12 @@ const handleMouseEnter = (e: any, index: number) => {
 
 .banner-img {
   height: 100%;
-  width: 90%;
+  width: 100%;
   object-fit: cover;
   object-position: bottom;
   filter: brightness(0.75) contrast(1.1);
   transition: transform 8s ease;
-  background: linear-gradient(90deg, transparent 40%, #000 90%), var(--bg-banner-image) bottom left / cover no-repeat;
+  background: linear-gradient(90deg, transparent 40%, #000 80%), var(--bg-banner-image) bottom left / cover no-repeat;
   &:hover {
     transform: scale(1.05);
   }
