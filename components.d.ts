@@ -16,6 +16,7 @@ declare module 'vue' {
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     FilmCalendar: typeof import('./src/components/FilmCalendar.vue')['default']
+    Header: typeof import('./src/components/Header.vue')['default']
     IndexCarousel: typeof import('./src/components/IndexCarousel.vue')['default']
     LatestNews: typeof import('./src/components/LatestNews.vue')['default']
     MiniCard: typeof import('./src/components/MiniCard.vue')['default']

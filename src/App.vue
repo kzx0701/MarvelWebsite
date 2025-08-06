@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import NavBar from "./components/NavBar.vue";
+import Header from "./components/Header.vue";
 </script>
 
 <template>
-  <NavBar />
+  <Header />
   <main class="main-container">
     <RouterView></RouterView>
   </main>
@@ -12,7 +12,7 @@ import NavBar from "./components/NavBar.vue";
 
 <style scoped>
 .main-container {
-  padding: 5rem 15rem 0;
-  background-color: #000000d4;
+  background-color: #000000d6;
+  min-height: 100vh;
 }
 </style>

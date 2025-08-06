@@ -25,7 +25,9 @@ const isActive = (path: string) => {
 <template>
   <nav class="nav-bar">
     <!-- logo区 -->
-    <img class="logo" src="../assets/images/Marvel_Logo.svg" />
+    <div class="logo-contianer">
+      <img class="logo" src="../assets/images/Marvel_Logo.svg" />
+    </div>
     <!-- 导航区 -->
     <div class="nav-container">
       <div
@@ -74,15 +76,21 @@ const isActive = (path: string) => {
   align-items: center;
   justify-content: space-between;
   height: 5rem;
-  position: fixed; /* 改为固定定位 */
+  position: sticky; /* 改为固定定位 */
   top: 0; /* 固定在顶部 */
   left: 0; /* 左侧对齐 */
   right: 0; /* 右侧对齐 */
   z-index: 1000; /* 确保导航栏在最上层 */
-}
+  .logo-contianer {
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-.logo {
-  width: 8rem;
+    .logo {
+      width: 8rem;
+    }
+  }
 }
 
 .nav-container {
@@ -181,7 +189,10 @@ const isActive = (path: string) => {
 .right-container {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+
   gap: 1rem;
+  width: 25%;
 }
 
 .search-container {
