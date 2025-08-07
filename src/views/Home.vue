@@ -7,6 +7,13 @@
 
 <script setup lang="ts">
 import IndexCarousel from "../components/IndexCarousel.vue";
+import { useRoleStore } from "../stores/role";
+import { onMounted } from "vue";
+const roleStore = useRoleStore();
+
+onMounted(async () => {
+  roleStore.fetchRoleList();
+});
 </script>
 
 <style scoped lang="scss">
