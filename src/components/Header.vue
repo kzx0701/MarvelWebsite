@@ -68,7 +68,7 @@ const isActive = (path: string) => {
 
 <style scoped lang="scss">
 .nav-bar {
-  background-color: black;
+  background-color: #0000003d;
   color: white;
   padding: 0 1rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -76,7 +76,7 @@ const isActive = (path: string) => {
   align-items: center;
   justify-content: space-between;
   height: 5rem;
-  position: sticky; /* 改为固定定位 */
+  position: fixed; /* 改为固定定位 */
   top: 0; /* 固定在顶部 */
   left: 0; /* 左侧对齐 */
   right: 0; /* 右侧对齐 */

@@ -1,10 +1,10 @@
 import { supabase } from "../../lib/supabaseClient";
 
 // 获取首页轮播图数据
-export const getBannerList = async (limit = 5) => {
+export const getIndexBannerList = async (limit = 5) => {
   try {
     const { data, error } = await supabase
-      .from("marvel_heroes") // 假设表名为 banners
+      .from("banner_index") // 假设表名为 banners
       .select("*")
       .limit(limit);
 

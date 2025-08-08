@@ -4,11 +4,11 @@
     <!-- 左侧banner -->
     <div class="banner-container">
       <el-carousel :interval="5000" direction="vertical" activeIndex="1" trigger="click" ref="carouselRef">
-        <el-carousel-item v-for="(item, index) in bannerList" :key="index">
-          <div class="banner-img" :style="{ '--bg-banner-image': 'url(' + item.image + ')' }" />
+        <el-carousel-item v-for="(item, index) in bannerStore.indexBannerList" :key="index">
+          <div class="banner-img" :style="{ '--bg-banner-image': 'url(' + item.banner_img + ')' }" />
           <div class="banner-text">
-            <h2>{{ item.title }}</h2>
-            <p>{{ item.description }}</p>
+            <h2>{{ item.banner_title }}</h2>
+            <p>{{ item.banner_subtitle }}</p>
           </div>
         </el-carousel-item>
       </el-carousel>
@@ -17,61 +17,32 @@
     <div class="cards">
       <div
         class="card"
-        :style="{ '--bg-image': 'url(' + item.image + ')' }"
+        :style="{ '--bg-image': 'url(' + item.banner_img + ')' }"
         @mouseenter="(e) => handleMouseEnter(e, index)"
-        v-for="(item, index) in bannerList"
-        :key="index"
-      >
-        <p class="tip">{{ item.title }}</p>
-        <p class="second-text">{{ item.description }}</p>
+        v-for="(item, index) in bannerStore.indexBannerList"
+        :key="index">
+        <p class="tip">{{ item.banner_title }}</p>
+
+        <p class="second-text">{{ item.banner_subtitle }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import banner1 from "../assets/sources/index_banner1.jpg";
-import banner2 from "../assets/sources/index_banner2.jpg";
-import banner3 from "../assets/sources/index_banner3.jpg";
+import { ref, onMounted } from "vue";
+import { useBannerStore } from "../stores/banner";
+const bannerStore = useBannerStore();
+
+onMounted(() => {
+  bannerStore.fetchBannerList();
+});
+
 // 获取轮播图组件实例
 const carouselRef = ref<any>(null);
 
-const bannerList = ref([
-  {
-    title: "雷霆特工队今日上映",
-    description: "漫威宇宙",
-    image: banner1,
-    link: "",
-  },
-  {
-    title: "雷霆特工队今日上映",
-    description: "漫威宇宙",
-    image: banner2,
-    link: "",
-  },
-  {
-    title: "雷霆特工队今日上映",
-    description: "漫威宇宙",
-    image: banner3,
-    link: "",
-  },
-  {
-    title: "雷霆特工队今日上映",
-    description: "漫威宇宙",
-    image: banner3,
-    link: "",
-  },
-  {
-    title: "雷霆特工队今日上映",
-    description: "漫威宇宙",
-    image: banner3,
-    link: "",
-  },
-]);
 // 列表悬浮事件
 const handleMouseEnter = (e: any, index: number) => {
-  console.log("hover", e, index);
   carouselRef.value.setActiveItem(index);
 };
 </script>
@@ -79,7 +50,8 @@ const handleMouseEnter = (e: any, index: number) => {
 <style scoped lang="scss">
 .container {
   position: relative;
-  height: 65vh;
+  height: 100vh;
+
   .banner-container {
     width: 100%;
     position: relative;
@@ -108,14 +80,14 @@ const handleMouseEnter = (e: any, index: number) => {
     justify-content: center;
     flex-direction: column;
     text-align: center;
-    height: 20%;
+    height: 15%;
     width: 100%;
     border-radius: 10px;
     color: white;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* 更自然的过渡曲线 */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(90deg, #000 15%, transparent 100%), var(--bg-image) bottom right / cover no-repeat;
+    background: linear-gradient(90deg, #000 15%, transparent 80%), var(--bg-image) bottom right / cover no-repeat;
   }
 
   .cards .card p.tip {
@@ -130,10 +102,8 @@ const handleMouseEnter = (e: any, index: number) => {
   .cards .card:hover {
     transform: scale(1.08, 1.1);
   }
-
-  .cards:hover > .card:not(:hover) {
+  .card:hover ~ .card {
     filter: blur(10px);
-    transform: scale(0.9, 0.9);
   }
 }
 .el-carousel {
@@ -141,7 +111,7 @@ const handleMouseEnter = (e: any, index: number) => {
   width: 100%;
 }
 :deep(.el-carousel__container) {
-  height: 65vh;
+  height: 100vh;
   width: 100%;
   text-align: center;
 }
@@ -153,7 +123,7 @@ const handleMouseEnter = (e: any, index: number) => {
   object-position: bottom;
   filter: brightness(0.75) contrast(1.1);
   transition: transform 8s ease;
-  background: linear-gradient(90deg, transparent 40%, #000 80%), var(--bg-banner-image) bottom left / cover no-repeat;
+  background: linear-gradient(90deg, transparent 55%, #000 90%), var(--bg-banner-image) bottom left / cover no-repeat;
   &:hover {
     transform: scale(1.05);
   }
