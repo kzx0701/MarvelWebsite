@@ -1,12 +1,14 @@
 <!-- 主页 -->
 <template>
-  <div class="home-container" ref="container">
+  <div class="scroll-container" ref="container">
     <!-- 第一屏 -->
-    <IndexCarousel />
+    <section class="scroll-section">
+      <IndexCarousel />
+    </section>
     <!-- 第二屏 -->
-    <div class="screen-section" v-if="screensCount > 1">
+    <section class="scroll-section">
       <div>55555555551</div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -14,37 +16,23 @@
 import IndexCarousel from "../components/IndexCarousel.vue";
 import { useRoleStore } from "../stores/role";
 import { ref, onMounted, watch, useTemplateRef } from "vue";
-import { useScroll } from "@vueuse/core";
+import { useScroll, useWindowSize } from "@vueuse/core";
 const roleStore = useRoleStore();
-// 屏幕数量和当前索引
+
+// 屏幕数量
 const container = useTemplateRef<HTMLElement>("container");
-const screensCount = 4;
+// 当前索引
 const currentIndex = ref(0);
-const isScrolling = ref(false);
+
 // 使用useScroll监听滚动
 const { y } = useScroll(container);
-const headerHeight = 5 * 16; // 5rem转换为px
-// 监听滚动位置变化
+const { height: windowHeight } = useWindowSize();
+
+// 监听滚动位置更新当前索引
 watch(y, (newY) => {
-  console.log(y.value, newY);
-
-  if (isScrolling.value) return;
-
-  const newIndex = Math.round((newY + headerHeight) / window.innerHeight);
-
-  if (newIndex !== currentIndex.value) {
-    isScrolling.value = true;
-    currentIndex.value = newIndex;
-
-    // 平滑滚动到目标屏幕
-    container.value?.scrollTo({
-      top: currentIndex.value * window.innerHeight - headerHeight,
-      behavior: "smooth",
-    });
-
-    setTimeout(() => {
-      isScrolling.value = false;
-    }, 800);
+  if (windowHeight) {
+    const newIndex = Math.round(newY / Number(windowHeight));
+    currentIndex.value = Math.max(0, Math.min(newIndex, document.querySelectorAll(".scroll-section").length - 1));
   }
 });
 
@@ -55,11 +43,22 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.home-container {
+.scroll-container {
   height: 100vh;
-
-  .screen-section {
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  /* 添加以下代码隐藏滚动条 */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  /* Chrome, Safari 和 Opera */
+  .scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  .scroll-section {
     height: 100vh;
+    scroll-snap-align: start;
+    width: 100%;
   }
 }
 </style>

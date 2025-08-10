@@ -20,7 +20,8 @@
         :style="{ '--bg-image': 'url(' + item.banner_img + ')' }"
         @mouseenter="(e) => handleMouseEnter(e, index)"
         v-for="(item, index) in bannerStore.indexBannerList"
-        :key="index">
+        :key="index"
+      >
         <p class="tip">{{ item.banner_title }}</p>
 
         <p class="second-text">{{ item.banner_subtitle }}</p>
@@ -51,7 +52,7 @@ const handleMouseEnter = (e: any, index: number) => {
 .container {
   position: relative;
   height: 100vh;
-
+  overflow: hidden;
   .banner-container {
     width: 100%;
     position: relative;
@@ -60,18 +61,19 @@ const handleMouseEnter = (e: any, index: number) => {
   }
 
   .cards {
-    width: 20%;
+    width: 30%;
     height: calc(100% - 20px);
     padding: 0 25px;
     margin: 10px 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     position: absolute;
     top: 0;
     right: 0;
+    overflow: hidden;
   }
 
   .cards .card {
@@ -81,13 +83,13 @@ const handleMouseEnter = (e: any, index: number) => {
     flex-direction: column;
     text-align: center;
     height: 15%;
-    width: 100%;
+    width: 80%;
     border-radius: 10px;
     color: white;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* 更自然的过渡曲线 */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(90deg, #000 15%, transparent 80%), var(--bg-image) bottom right / cover no-repeat;
+    background: linear-gradient(90deg, #000 15%, transparent 80%), var(--bg-image) center right / cover no-repeat;
   }
 
   .cards .card p.tip {
@@ -101,9 +103,12 @@ const handleMouseEnter = (e: any, index: number) => {
 
   .cards .card:hover {
     transform: scale(1.08, 1.1);
+    overflow: hidden !important;
+    transform-origin: center right; /* 调整缩放原点为右侧中心 */
   }
-  .card:hover ~ .card {
+  .cards:hover > .card:not(:hover) {
     filter: blur(10px);
+    transform: scale(0.9, 0.9);
   }
 }
 .el-carousel {
@@ -119,13 +124,11 @@ const handleMouseEnter = (e: any, index: number) => {
 .banner-img {
   height: 100%;
   width: 100%;
-  object-fit: cover;
-  object-position: bottom;
   filter: brightness(0.75) contrast(1.1);
   transition: transform 8s ease;
-  background: linear-gradient(90deg, transparent 55%, #000 90%), var(--bg-banner-image) bottom left / cover no-repeat;
+  background: linear-gradient(180deg, transparent 50%, #000 100%), var(--bg-banner-image) center left / cover no-repeat;
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 }
 .banner-text {
